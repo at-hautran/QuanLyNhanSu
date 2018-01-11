@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import com.cham.DBConnect.DBConnect;
 import com.cham.bean.Staff;
+import com.cham.bean.Teacher;
 import com.cham.bean.User;
 
 public class UserDao {
@@ -81,6 +82,24 @@ public class UserDao {
 			e.printStackTrace();
 		}
 		return objUser;
+	}
+	
+	public static User getUserById(int userId) {
+		Connection conn = DBConnect.getConnecttion();
+		String sql ="SELECT * FROM User WHERE UserId = '"+userId+"'";
+		PreparedStatement ps;
+		User user = null;
+		//Staff staff = new Staff();
+		try {
+			ps = conn.prepareCall(sql);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+			user = new User(rs.getInt("UserId"), rs.getString("Username"), rs.getString("Password"), rs.getInt("Role"), rs.getInt("Type"));
+			
+		}} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 	
 }

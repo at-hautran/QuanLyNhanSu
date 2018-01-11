@@ -55,6 +55,27 @@ public static Teacher getTeacher(int userId) {
 	}
 	return teacher;
 }
+public static Teacher getTeacherAndUserInforByUserId(int userId) {
+	System.out.print("user_id" + userId);
+	Connection conn = DBConnect.getConnecttion();
+	String sql = "SELECT * FROM Teacher INNER JOIN User ON Teacher.UserId = User.UserId WHERE Teacher.UserId = '" + userId + "'";
+	PreparedStatement ps;
+	Teacher teacher = null;
+	//Staff staff = new Staff();
+	try {
+		ps = conn.prepareCall(sql);
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()) {
+		teacher = new Teacher(rs.getInt("UserId"), rs.getString("Username"), rs.getString("Password"),
+				rs.getInt("role"), rs.getInt("type"), rs.getString("Name"), rs.getInt("BirthYear"),
+				rs.getString("Faculty"),rs.getInt("Lessons"),rs.getFloat("CoefficientSalary"),
+				rs.getString("Degree"),rs.getString("Country"),rs.getInt("Allowance"),rs.getInt("Salary"));
+		
+	}} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return teacher;	
+}
 public static boolean update(Teacher teacher) {
 	Connection conn = DBConnect.getConnecttion();
 	Statement statement = null;

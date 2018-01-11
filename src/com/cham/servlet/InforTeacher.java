@@ -53,7 +53,8 @@ public class InforTeacher extends HttpServlet {
 		else {
 				switch (action) {
 					case "edit":
-						Teacher teacher = TeacherDao.getTeacher(userinfor.getUserID());
+						Teacher teacher = TeacherDao.getTeacherAndUserInforByUserId(userinfor.getUserID());
+						System.out.println("teacher" + teacher);
 						request.setAttribute("teacher", teacher);
 						RequestDispatcher rd1 = request.getRequestDispatcher("/editTeacher.jsp");
 						rd1.forward(request, response);

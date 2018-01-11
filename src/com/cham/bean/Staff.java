@@ -1,6 +1,6 @@
 package com.cham.bean;
 
-public class Staff {
+public class Staff extends User {
 	int id;
 	String name;
 	public int getUserId() {
