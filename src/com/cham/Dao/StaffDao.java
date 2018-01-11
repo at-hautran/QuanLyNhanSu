@@ -48,7 +48,6 @@ public class StaffDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(listStaff + "a");
 		return listStaff;
 	}
 }

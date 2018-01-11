@@ -1,6 +1,6 @@
 package com.cham.bean;
 
-public class Teacher {
+public class Teacher extends User {
 	int id;
 	String name;
 	int birthDay;
@@ -92,6 +92,22 @@ public class Teacher {
 		this.allowance = allowance;
 		this.salary = salary;
 	}
+	
+	public Teacher(int id, String username, String password, int role, int type, String name, int birthDay, String facutly, int lessons, float coefficientSalary,
+			String degree, String country, int allowance, int salary) {
+		this.id = id;
+		this.username = username;
+		this.name = name;
+		this.birthDay = birthDay;
+		this.facutly = facutly;
+		this.lessons = lessons;
+		this.coefficientSalary = coefficientSalary;
+		this.degree = degree;
+		this.country = country;
+		this.allowance = allowance;
+		this.salary = salary;
+	}
+	
 	public Teacher( int userId, String name) {
 		super();
 		this.userId = userId; 

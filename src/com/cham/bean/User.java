@@ -2,7 +2,7 @@ package com.cham.bean;
 
 public class User {
 	int UserID;
-	String name;
+	String username;
 	String password;
 	int role;
 	int type;
@@ -14,10 +14,10 @@ public class User {
 	public void setType(int type) {
 		this.type = type;
 	}
-	public User(int userID, String name, String password, int role, int type) {
+	public User(int userID, String username, String password, int role, int type) {
 		super();
 		UserID = userID;
-		this.name = name;
+		this.username = username;
 		this.password = password;
 		this.role = role;
 		this.type = type;
@@ -32,11 +32,11 @@ public class User {
 	public void setUserID(int userID) {
 		UserID = userID;
 	}
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.username = name;
 	}
 	public String getPassword() {
 		return password;
