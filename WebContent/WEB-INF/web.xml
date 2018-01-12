@@ -16,6 +16,11 @@
   </servlet>
   <servlet>
     <description></description>
+    <servlet-name>InforUser</servlet-name>
+    <servlet-class>com.cham.servlet.InforUser</servlet-class>
+  </servlet>
+  <servlet>
+    <description></description>
     <servlet-name>InforMy</servlet-name>
     <servlet-class>com.cham.servlet.InforMy</servlet-class>
   </servlet>
@@ -31,5 +36,9 @@
   <servlet-mapping>
     <servlet-name>InforMy</servlet-name>
     <url-pattern>/informy1</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>InforUser</servlet-name>
+    <url-pattern>/inforuser</url-pattern>
   </servlet-mapping>
 </web-app>

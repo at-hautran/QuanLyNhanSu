@@ -79,12 +79,36 @@
 <!-- <sql:query dataSource="" var="result">
 SELECT * from TEACHER;
 </sql:query> -->
+<% String type = request.getParameter("type"); %>
  <form action="" name = "user_type">
-<input type="radio" name="display" checked="checked" value="All">All
-<input type="radio" name="display" value="Staff">Staff
-<input type="radio" name="display" value="Teacher">Teacher 
+<input type="radio" name="display" <% if (!"teacher".equals(type) && !"staff".equals(type)){ %> checked <% } %> value="All">All
+<input type="radio" name="display" <% if("staff".equals(type)){%> checked <% } %> value="Staff">Staff
+<input type="radio" name="display" <% if("teacher".equals(type)){%> checked <% } %> value="Teacher">Teacher 
 </form>
 <script type="text/javascript">
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+var rad = document.user_type.display;
+var prev = null;
+for(var i = 0; i < rad.length; i++) {
+    rad[i].onclick = function() {
+        if(this.value == "Staff"){
+        	    window.open("http://localhost:8080/QuanLyNhanSu/inforuser?action=getUser&type=staff", "_self");
+        }
+        else if(this.value == "Teacher"){
+       	 	window.open("http://localhost:8080/QuanLyNhanSu/inforuser?action=getUser&type=teacher", "_self");
+        }
+        else {
+        	window.open("http://localhost:8080/QuanLyNhanSu/inforuser?action=getUser", "_self");
+        }
+    };
+}
 </script>
 <table border="1" width="100%">
 <tr>
@@ -109,7 +133,7 @@ SELECT * from TEACHER;
 			int i=0;
 %>
 <%
-	if(user.getType() == 2) {
+	if(user.getType() == 2 && (type == null || "teacher".equals(type))) {
 		Teacher teacher = (Teacher)user;
 %>
 <tr>
@@ -127,7 +151,7 @@ SELECT * from TEACHER;
    <th></th>
 </tr>
 <%} 
-    else if(user.getType() == 1) {
+    else if(user.getType() == 1 && (type == null || "staff".equals(type))) {
     	Staff staff = (Staff)user;
     %>
 <tr>
