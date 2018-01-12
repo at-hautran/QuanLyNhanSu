@@ -108,9 +108,11 @@ public class Teacher extends User {
 		this.salary = salary;
 	}
 	
-	public Teacher( int userId, String name) {
-		super();
-		this.userId = userId; 
+//	edit
+	public Teacher( int userId, String username, String password, String name) {
+		this.userId = userId;
+		this.username = username;
+		this.password = password;
 		this.name = name;
 	}
 	public Teacher() {

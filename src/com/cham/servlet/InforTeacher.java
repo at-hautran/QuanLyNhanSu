@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.cham.Dao.StaffDao;
 import com.cham.Dao.TeacherDao;
+import com.cham.Dao.UserDao;
 import com.cham.bean.Teacher;
 import com.cham.bean.User;
 
@@ -53,20 +54,18 @@ public class InforTeacher extends HttpServlet {
 		else {
 				switch (action) {
 					case "edit":
-						Teacher teacher = TeacherDao.getTeacherAndUserInforByUserId(userinfor.getUserID());
+						Teacher teacher = TeacherDao.getTeacherAndUserInforByUserId(userinfor.getUserId());
 						System.out.println("teacher" + teacher);
 						request.setAttribute("teacher", teacher);
 						RequestDispatcher rd1 = request.getRequestDispatcher("/editTeacher.jsp");
 						rd1.forward(request, response);
 						break;
 					case "update":
-						
-						System.out.println("size: update here");
 						Teacher teacher_update = getTeacher(request);
-						boolean update_return = TeacherDao.update(teacher_update);
-						System.out.println(update_return);
-						if (update_return) {
-							Teacher teacher1 = TeacherDao.getTeacher(userinfor.getUserID());
+						boolean update_teacher_return = TeacherDao.update(teacher_update);
+								UserDao.update(teacher_update);
+						if (update_teacher_return) {
+							Teacher teacher1 = TeacherDao.getTeacherAndUserInforByUserId(userinfor.getUserId());
 							request.setAttribute("teacher", teacher1);
 							RequestDispatcher rd2 = request.getRequestDispatcher("/editTeacher.jsp");
 							rd2.forward(request, response);
@@ -85,11 +84,13 @@ public class InforTeacher extends HttpServlet {
 	public Teacher getTeacher(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		User userinfor = (User)session.getAttribute("userinfor");
-		String name;
-		name = (request.getParameter("name"));
-		System.out.println("b" + name);
-		int userId = userinfor.getUserID();
-		Teacher teacher = new Teacher(userId, name);
+		int userId = userinfor.getUserId();
+		System.out.print("iddddddddddddddd" + userId);
+		String name = request.getParameter("name");
+		String username = request.getParameter("username");
+		System.out.print("username" + username);
+		String password = request.getParameter("password");
+		Teacher teacher = new Teacher(userId, username, password, name);
 		
 		return teacher;
 		
