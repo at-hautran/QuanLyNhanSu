@@ -1,6 +1,7 @@
 package com.cham.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cham.Dao.StaffDao;
 import com.cham.Dao.UserDao;
+import com.cham.bean.User;
 
 /**
  * Servlet implementation class Infor
@@ -35,12 +37,26 @@ public class InforUser extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		StaffDao userDao = new StaffDao();
-		request.setAttribute("listStaff", userDao.getListStaffs());
-		System.out.println("size: "+userDao.getListStaffs().size());
-		RequestDispatcher rd = request.getRequestDispatcher("/Admin.jsp");
-		rd.forward(request, response);
+		if("getUser".equals(request.getParameter("action"))) {
+			ArrayList<User> userList = UserDao.getAllTeacherAndStaff();
+			request.setAttribute("userList", userList);
+			request.getRequestDispatcher("/Admin.jsp").forward(request, response);
+//			if(request.getParameter("type").equals("staff")) {
+//				System.out.print("staff");
+//			}
+//			else if(request.getParameter("type").equals("teacher")) {
+//				System.out.print("teacher");
+//			}
+//			else {
+//				System.out.print("all");
+//			}
+		}
+//		
+//		StaffDao userDao = new StaffDao();
+//		request.setAttribute("listStaff", userDao.getListStaffs());
+//		System.out.println("size: "+userDao.getListStaffs().size());
+//		RequestDispatcher rd = request.getRequestDispatcher("/Admin.jsp");
+//		rd.forward(request, response);
 		
 	}
 

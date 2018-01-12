@@ -79,11 +79,37 @@
 <!-- <sql:query dataSource="" var="result">
 SELECT * from TEACHER;
 </sql:query> -->
- <form action="">
-<input type="radio" name="display" checked="checked" value="All">All
-<input type="radio" name="display" value="Staff">Staff
-<input type="radio" name="display" value="Teacher">Teacher 
+<% String type = request.getParameter("type"); %>
+ <form action="" name = "user_type">
+<input type="radio" name="display" <% if (!"teacher".equals(type) && !"staff".equals(type)){ %> checked <% } %> value="All">All
+<input type="radio" name="display" <% if("staff".equals(type)){%> checked <% } %> value="Staff">Staff
+<input type="radio" name="display" <% if("teacher".equals(type)){%> checked <% } %> value="Teacher">Teacher 
 </form>
+<script type="text/javascript">
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+var rad = document.user_type.display;
+var prev = null;
+for(var i = 0; i < rad.length; i++) {
+    rad[i].onclick = function() {
+        if(this.value == "Staff"){
+        	    window.open("http://localhost:8080/QuanLyNhanSu/inforuser?action=getUser&type=staff", "_self");
+        }
+        else if(this.value == "Teacher"){
+       	 	window.open("http://localhost:8080/QuanLyNhanSu/inforuser?action=getUser&type=teacher", "_self");
+        }
+        else {
+        	window.open("http://localhost:8080/QuanLyNhanSu/inforuser?action=getUser", "_self");
+        }
+    };
+}
+</script>
 <table border="1" width="100%">
 <tr>
 	<th>STT</th>
@@ -100,25 +126,49 @@ SELECT * from TEACHER;
    <th>Action</th>
 </tr>
 <%
-	if(request.getAttribute("listStaff") != null){
+	ArrayList<User> userList = (ArrayList<User>)request.getAttribute("userList");
+	if(request.getAttribute("userList") != null){
 		ArrayList<Staff> listStaff = (ArrayList<Staff>) request.getAttribute("listStaff");
-		for(Staff objStaff : listStaff){
+		for(User user : userList){
 			int i=0;
+%>
+<%
+	if(user.getType() == 2 && (type == null || "teacher".equals(type))) {
+		Teacher teacher = (Teacher)user;
 %>
 <tr>
    <th><%=i++ %></th>
-   <th><%=objStaff.getName() %></th>
-   <th><%=objStaff.getBirthDay() %></th>
-   <th><%=objStaff.getCountry() %></th>
-   <th>Nhân Viên</th>
-   <th><%=objStaff.getDepartmemt() %></th>
-   <th><%=objStaff.getPosition() %></th>
-   <th><%=objStaff.getAllowance() %></th>
-   <th><%=objStaff.getWorkdays() %></th>
-   <th><%=objStaff.getCoefficientSalary() %></th>
-   <th><%=objStaff.getSalary() %></th>
+   <th><%= teacher.getName() %></th>
+   <th><%= teacher.getBirthDay() %></th>
+   <th><%= teacher.getCountry() %></th>
+   <th>Giảng Viên</th>
+   <th><%= teacher.getFacutly() %></th>
+   <th><%=teacher.getDegree() %></th>
+   <th><%= teacher.getAllowance() %></th>
+   <th><%= teacher.getLessons() %></th>
+   <th><%= teacher.getCoefficientSalary() %></th>
+   <th><%= teacher.getSalary() %></th>
    <th></th>
 </tr>
+<%} 
+    else if(user.getType() == 1 && (type == null || "staff".equals(type))) {
+    	Staff staff = (Staff)user;
+    %>
+<tr>
+   <th><%=i++ %></th>
+   <th><%= staff.getName() %></th>
+   <th><%= staff.getBirthDay() %></th>
+   <th><%= staff.getCountry() %></th>
+   <th>Nhân Viên</th>
+   <th><%= staff.getDepartmemt() %></th>
+   <th><%= staff.getPosition() %></th>
+   <th><%= staff.getAllowance() %></th>
+   <th><%= staff.getWorkdays() %></th>
+   <th><%= staff.getCoefficientSalary() %></th>
+   <th><%= staff.getSalary() %></th>
+    <th></th>
+</tr>
+<%} %>
 <%} }%>
 </table>
 </div>
