@@ -102,4 +102,28 @@ public class UserDao {
 		return user;
 	}
 //	update here
+	
+	public static boolean update(Teacher user) {
+		Connection conn = DBConnect.getConnecttion();
+		Statement statement = null;
+		try {
+			statement = conn.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String sql = "Update User SET Username = '" + user.getUsername() + "', Password = '" +user.getPassword() +"' where UserId = '" + user.getUserId() + "'";
+		System.out.print(sql);
+		System.out.print("aaaaa"+ user.getUserId());
+		PreparedStatement ps;
+		try {
+//			ps = conn.prepareCall(sql);
+			statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 }

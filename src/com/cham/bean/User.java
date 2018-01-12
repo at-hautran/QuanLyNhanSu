@@ -1,7 +1,7 @@
 package com.cham.bean;
 
 public class User {
-	int UserID;
+	int UserId;
 	String username;
 	String password;
 	int role;
@@ -16,7 +16,7 @@ public class User {
 	}
 	public User(int userID, String username, String password, int role, int type) {
 		super();
-		UserID = userID;
+		UserId = userID;
 		this.username = username;
 		this.password = password;
 		this.role = role;
@@ -26,11 +26,11 @@ public class User {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public int getUserID() {
-		return UserID;
+	public int getUserId() {
+		return UserId;
 	}
-	public void setUserID(int userID) {
-		UserID = userID;
+	public void setUserId(int userID) {
+		UserId = userID;
 	}
 	public String getUsername() {
 		return username;

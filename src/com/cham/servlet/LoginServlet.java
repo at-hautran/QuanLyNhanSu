@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 		if(userdao.checklogin(request.getParameter("username"),request.getParameter("password"))) {
 			request.setAttribute("userInfor", userinfor);
 			session.setAttribute("type", userinfor.getType());
-			session.setAttribute("userId", userinfor.getUserID());
+			session.setAttribute("userId", userinfor.getUserId());
 			session.setAttribute("userinfor", userinfor);
 			if(userdao.checkID(request.getParameter("username"))==1){
 				request.getRequestDispatcher("/Admin.jsp").forward(request, response);
@@ -67,14 +67,14 @@ public class LoginServlet extends HttpServlet {
 			if(userdao.checkID(request.getParameter("username"))==2){
 				if(userinfor.getType() == 1) {
 //					System.out.print("detail");
-				 	Staff staff = StaffDao.getStaff(userinfor.getUserID());
+				 	Staff staff = StaffDao.getStaff(userinfor.getUserId());
 				 	request.setAttribute("staff", staff);
 				 	//System.out.print("detail" + staff.getName());
 				 	request.getRequestDispatcher("/currentStaff.jsp").forward(request, response);
 				}else if(userinfor.getType() == 2) {
 //					System.out.print("detail");
 					
-					Teacher teacher = TeacherDao.getTeacher(userinfor.getUserID());
+					Teacher teacher = TeacherDao.getTeacher(userinfor.getUserId());
 					request.setAttribute("teacher", teacher);
 //					System.out.print("aasdsad" + teacher.getBirthDay());
 					request.getRequestDispatcher("/currentTeacher.jsp").forward(request, response);
