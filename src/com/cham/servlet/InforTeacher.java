@@ -85,10 +85,8 @@ public class InforTeacher extends HttpServlet {
 		HttpSession session = request.getSession();
 		User userinfor = (User)session.getAttribute("userinfor");
 		int userId = userinfor.getUserId();
-		System.out.print("iddddddddddddddd" + userId);
 		String name = request.getParameter("name");
 		String username = request.getParameter("username");
-		System.out.print("username" + username);
 		String password = request.getParameter("password");
 		Teacher teacher = new Teacher(userId, username, password, name);
 		

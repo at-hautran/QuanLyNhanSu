@@ -80,7 +80,6 @@ public class Teacher extends User {
 	}
 	public Teacher(int id, String name, int birthDay, String facutly, int lessons, float coefficientSalary,
 			String degree, String country, int allowance, int salary) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.birthDay = birthDay;
@@ -91,6 +90,20 @@ public class Teacher extends User {
 		this.country = country;
 		this.allowance = allowance;
 		this.salary = salary;
+	}
+	
+	public Teacher(String name, int birthDay, String country, int type, String facutly, String degree,
+			int allowance, int lessons, float coefficientSalary, int salary) {
+		this.name = name;
+		this.birthDay = birthDay;
+		this.facutly = facutly;
+		this.lessons = lessons;
+		this.coefficientSalary = coefficientSalary;
+		this.degree = degree;
+		this.country = country;
+		this.allowance = allowance;
+		this.salary = salary;
+		this.type = type;
 	}
 	
 	public Teacher(int id, String username, String password, int role, int type, String name, int birthDay, String facutly, int lessons, float coefficientSalary,

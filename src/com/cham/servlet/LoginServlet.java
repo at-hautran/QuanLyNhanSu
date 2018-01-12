@@ -1,6 +1,7 @@
 package com.cham.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -62,6 +63,8 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("userId", userinfor.getUserId());
 			session.setAttribute("userinfor", userinfor);
 			if(userdao.checkID(request.getParameter("username"))==1){
+				ArrayList<User> userList = UserDao.getAllTeacherAndStaff();
+				request.setAttribute("userList", userList);
 				request.getRequestDispatcher("/Admin.jsp").forward(request, response);
 			}
 			if(userdao.checkID(request.getParameter("username"))==2){

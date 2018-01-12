@@ -126,4 +126,39 @@ public class UserDao {
 		}
 		return true;
 	}
+	
+	public static ArrayList<User> getAllTeacherAndStaff() {
+		Connection conn = DBConnect.getConnecttion();
+		String sql ="SELECT Teacher.Name AS name, Teacher.BirthYear AS birthYear,"
+				+ " Teacher.Country AS country, 2 AS type, Teacher.Faculty AS C1,"
+				+ " Teacher.Degree AS C2, Teacher.Allowance AS C3, Teacher.Lessons AS C4,"
+				+ " Teacher.CoefficientSalary AS C5, Teacher.Salary AS C6 FROM Teacher\n" + 
+				"UNION\n" + 
+				"SELECT Staff.Name AS name, Staff.BirthYear AS birthYear,"
+				+ " Staff.Country AS country, 1 AS type, Staff.Department AS C1,"
+				+ " Staff.Position AS C2, Staff.Allowance AS C3, Staff.WorkDays AS C4,"
+				+ " Staff.CoefficientSalary AS C5, Staff.Salary AS C6 From Staff";
+		PreparedStatement ps;
+		ArrayList<User> listUser = new ArrayList<>();
+		try {
+			ps = conn.prepareCall(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				if(rs.getInt("Type") == 2) {
+					Teacher teacher = new Teacher(rs.getString("name"), rs.getInt("birthYear"), rs.getString("country"), rs.getInt("Type"),
+							rs.getString("C1"), rs.getString("C2"), rs.getInt("C3"), rs.getInt("C4") , rs.getFloat("C5"), rs.getInt("C6"));
+					listUser.add(teacher);
+					
+				}
+				else if(rs.getInt("Type") == 1) {
+				    Staff staff = new Staff(rs.getString("name"), rs.getInt("birthYear"), rs.getString("country"), rs.getInt("Type"),
+							rs.getString("C1"), rs.getString("C2"), rs.getInt("C3"), rs.getInt("C4") , rs.getFloat("C5"), rs.getInt("C6"));
+				    listUser.add(staff);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listUser;
+	}
 }

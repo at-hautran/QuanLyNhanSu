@@ -37,6 +37,19 @@ public class Staff extends User {
 		this.allowance = allowance;
 		this.salary = salary;
 	}
+	public Staff(String name, int birthDay, String country, int type, String departmemt,
+			String position, int allowance, int workdays, float coefficientSalary, int salary) {
+		this.name = name;
+		this.birthDay = birthDay;
+		this.departmemt = departmemt;
+		this.workdays = workdays;
+		this.coefficientSalary = coefficientSalary;
+		this.position = position;
+		this.country = country;
+		this.allowance = allowance;
+		this.salary = salary;
+		this.type = type;
+	}
 	public int getSalary() {
 		return salary;
 	}
